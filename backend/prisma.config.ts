@@ -9,6 +9,7 @@ export default defineConfig({
     path: "prisma/migrations",
   },
   datasource: {
+    // @ts-ignore: Prisma v7 issue with config typing
     url: process.env["DATABASE_URL"],
   },
 });
