@@ -1,0 +1,21 @@
+Quick project summary (so you can pick up later)
+Sprite preparation
+
+You placed player.png (Enel) in frontend/public/sprites/.
+Ran node remove_bg.js (now targeting player.png) to make the background fully transparent.
+Map rendering tweaks
+
+IslandMap.tsx now:
+Allows sprites to overflow their tile (overflow‑visible).
+Scales the player sprite to 0.5× its original size, anchored at the bottom so it sits on the ground.
+Uses a larger container (w‑12 h‑12 sm:w‑14 sm:h‑14) with a drop‑shadow for visual polish.
+Backend
+
+No changes needed; the backend already serves the sprite file unchanged.
+Next steps (when you’re ready)
+
+Layered customization UI: add a character‑creation screen where users can pick body, hair, eyes, outfit layers and store the selected IDs in the new appearance* fields (to be added to the Prisma schema).
+Database schema: extend Character with appearanceBody, appearanceHair, appearanceEyes, appearanceOutfit (strings) and run npx prisma db push.
+API: adjust POST /api/character/create to accept those fields and return them in GET /api/character/:userId.
+Frontend: build a preview component that stacks the selected layers (using position: absolute), similar to the player‑sprite rendering logic you just edited.
+That’s everything you’ve done so far and a clear path forward for the full layered character system. Feel free to let me know when you want to dive into the next piece!
