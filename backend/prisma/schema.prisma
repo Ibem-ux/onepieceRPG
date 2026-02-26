@@ -49,6 +49,7 @@ model Character {
   captainOf         Crew?       @relation("CaptainRelation")
   crewId            String?
   crew              Crew?       @relation("CrewMemberRelation", fields: [crewId], references: [id])
+  inventory         InventoryItem[]
 }
 
 enum Faction {
@@ -85,4 +86,35 @@ model Crew {
   captain     Character   @relation("CaptainRelation", fields: [captainId], references: [id])
   
   members     Character[] @relation("CrewMemberRelation")
+}
+
+model Item {
+  id            String          @id @default(uuid())
+  name          String          @unique
+  description   String
+  type          ItemType
+  effectValue   Int             @default(0) // Damage, Heal Amount, etc.
+  price         Int             @default(0)
+  
+  inventoryItems InventoryItem[]
+}
+
+enum ItemType {
+  WEAPON
+  CONSUMABLE
+  KEY_ITEM
+}
+
+model InventoryItem {
+  id          String      @id @default(uuid())
+  
+  characterId String
+  character   Character   @relation(fields: [characterId], references: [id], onDelete: Cascade)
+  
+  itemId      String
+  item        Item        @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  
+  quantity    Int         @default(1)
+  
+  @@unique([characterId, itemId]) // A character should only have one stack of a specific item
 }

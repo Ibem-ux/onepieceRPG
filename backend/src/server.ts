@@ -5,6 +5,7 @@ import cors from 'cors';
 
 import authRoutes from './routes/auth';
 import characterRoutes from './routes/character';
+import inventoryRoutes from './routes/inventory';
 
 const app = express();
 app.use(cors());
@@ -13,6 +14,7 @@ app.use(express.json());
 // API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/character', characterRoutes);
+app.use('/api/inventory', inventoryRoutes);
 
 const server = http.createServer(app);
 const io = new Server(server, {
